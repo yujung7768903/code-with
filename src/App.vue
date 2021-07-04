@@ -2,10 +2,14 @@
   <Header/>
   <div class="guide">
     <div class="greeting">
-      Welcome!
-      Free Course For Beginner - 
+      <strong> Welcome!</strong><br>
+      Free Course For Beginner<br>
       당신의 코딩학습에  코드윗이 함께할게요.
     </div>
+    <img class="coco" src="./assets/coco_smile.svg" alt="">
+  </div>
+  <div class="course">
+    <div class="course-box"></div>
   </div>
 </template>
 
@@ -49,8 +53,30 @@ body {
 div {
   box-sizing: border-box;
 }
+.guide {
+  text-align: left;
+  margin-top: 85px;
+  margin-left: 140px;
+}
 .guide .greeting {
+  display: inline-block;
+  width: 350px;
   color: var(--color_white);
+  text-align: left;
+}
+.guide .coco{
+  width: 150px;
+}
+.course {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  height: 320px;
+}
+.course .course-box {
+  width: 240px; height: 280px;
+  background-color: var(--color_white);
+  border-radius: 10px;
 }
 
 </style>
