@@ -1,4 +1,5 @@
 <template>
+  <Background />
   <Header/>
   <div class="guide">
     <div class="greeting">
@@ -9,17 +10,40 @@
     <img class="coco" src="./assets/coco_smile.svg" alt="">
   </div>
   <div class="course">
-    <div class="course-box"></div>
+    <div class="course-container" style="align-self: flex-end">
+      <img class="course-moon" src="./assets/img_cresent-moon-white.svg" alt="">
+      <div class="course-box"></div>
+    </div>
+    <div class="course-container" style="align-self: center">
+      <img class="course-moon" src="./assets/img_half-moon-white.svg" alt="">
+      <div class="course-box"></div>
+    </div>
+    <div class="course-container" style="align-self: flex-start">
+      <img class="course-moon" src="./assets/img_full-moon-white.svg" alt="">
+      <div class="course-box"></div>
+    </div>
   </div>
+  <div class="course-select">
+    <span class="course-select-start">Learing Frontend Course<br></span>
+    <span class="course-select-greeting">원하는 학습 단계를 선택하세요!</span>
+  </div>
+
 </template>
 
 <script>
 import Header from "./components/layout/Header-dark.vue"
+import Background from "./components/layout/background-main.vue"
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header, Background
+  },
+  data() {
+    return {
+      courseImg : ['./assets/img_cresent-moon-white.svg', './assets/img_half-moon-white.svg', './assets/img_full-moon-white.svg'],
+      courseStyle : ['align-self: flex-end' ,'align-self: center','align-self: flex-start']
+    }
   }
 }
 </script>
@@ -49,13 +73,16 @@ export default {
 body {
   background-image: url("./assets/background-main.png");
   background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #F5F5F5;
+  overflow: hidden;
 }
 div {
   box-sizing: border-box;
 }
 .guide {
   text-align: left;
-  margin-top: 85px;
+  margin-top: 60px;
   margin-left: 140px;
 }
 .guide .greeting {
@@ -68,15 +95,32 @@ div {
   width: 150px;
 }
 .course {
-  display: flex;
+  height: 380px;
+  display: flex; gap: 90px;
   justify-content: center;
   margin-top: 50px;
-  height: 320px;
 }
 .course .course-box {
-  width: 240px; height: 280px;
+  width: 220px; height: 250px;
   background-color: var(--color_white);
-  border-radius: 10px;
+  margin-top: 20px;
+  border-radius: 15px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.11);
 }
+.course-select {
+  width: 600px;
+  float: right;
+  margin: -30px 220px 0 0;
+  text-align: right;
+  font-size: 20px;
+}
+.course-select .course-select-start {
+  color: #5D3CBB;
+  font-weight: 600;
+}
+.course-select .course-select-greeting {
+  color: #8B8B8C;
+}
+
 
 </style>

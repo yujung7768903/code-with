@@ -28,7 +28,7 @@ export default {
 
 <style>
     body {
-        padding: 30px 40px;
+        padding: 20px 20px;
     }
     div{
         box-sizing: border-box;
@@ -40,7 +40,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%; height: 77px;
+        width: 100%; height: 70px;
         background-color: rgba(254, 249, 249, 0.1);
         border-radius: 20px;
         padding: 0px 30px;
