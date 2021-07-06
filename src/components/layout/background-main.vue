@@ -22,5 +22,7 @@ export default {
 img {
     width: 100px;
     position: absolute;
+    animation-iteration-count: infinite; /* 애니메이션 무한 반복 */
+    animation-direction: alternate;  /* 애니메이션이 끝나면 반대방향으로 다시 이동 */
 }
 </style>

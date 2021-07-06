@@ -1,5 +1,11 @@
 <template>
   <Background />
+  <div class="black-bg" v-if="windowState == 1">
+    <div class="white-bg" @click="windowState = 0">
+      <h4>{{selectWindow}}</h4>
+      <p>상세페이지 내용</p>
+    </div>
+  </div>
   <Header/>
   <div class="guide">
     <div class="greeting">
@@ -12,15 +18,15 @@
   <div class="course">
     <div class="course-container" style="align-self: flex-end">
       <img class="course-moon" src="./assets/img_cresent-moon-white.svg" alt="">
-      <div class="course-box"></div>
+      <div class="course-box" @click="selectWindow = windowTitle[0]; windowState = 1"></div>
     </div>
     <div class="course-container" style="align-self: center">
       <img class="course-moon" src="./assets/img_half-moon-white.svg" alt="">
-      <div class="course-box"></div>
+      <div class="course-box" @click="selectWindow = windowTitle[1]; windowState = 1"></div>
     </div>
     <div class="course-container" style="align-self: flex-start">
       <img class="course-moon" src="./assets/img_full-moon-white.svg" alt="">
-      <div class="course-box"></div>
+      <div class="course-box" @click="selectWindow = windowTitle[2]; windowState = 1"></div>
     </div>
   </div>
   <div class="course-select">
@@ -41,6 +47,9 @@ export default {
   },
   data() {
     return {
+      windowState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
+      windowTitle : ['HTML Process', 'CSS Process', 'JavaScript Process'],
+      selectWindow : '',
       courseImg : ['./assets/img_cresent-moon-white.svg', './assets/img_half-moon-white.svg', './assets/img_full-moon-white.svg'],
       courseStyle : ['align-self: flex-end' ,'align-self: center','align-self: flex-start']
     }
@@ -67,6 +76,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 20px 20px;
   text-align: center;
   color: #2c3e50;
 }
@@ -79,6 +89,20 @@ body {
 }
 div {
   box-sizing: border-box;
+}
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  margin: -20px; padding: 20px;
+}
+.white-bg {
+  width: 845px; height: 525px;
+  background: white;
+  border-radius: 8px;
+  margin: auto;
+  padding: 50px;
 }
 .guide {
   text-align: left;

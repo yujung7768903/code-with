@@ -28,7 +28,7 @@ export default {
 
 <style>
     body {
-        padding: 20px 20px;
+        margin: 0px;
     }
     div{
         box-sizing: border-box;
