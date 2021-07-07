@@ -1,8 +1,11 @@
 <template>
   <Background />
-  <div class="black-bg" v-if="windowState == 1">
-    <div class="white-bg" @click="windowState = 0">
-      <h4>{{selectWindow}}</h4>
+  <LoginPopup v-if="loginPopupState == 1"/>
+  <div class="black-bg" v-if="windowState == 1" @click="windowState = 0">
+    <div class="white-bg">
+      <div class="windowTitle">
+        <h4 class="select-course-name">{{selectWindow}}</h4> <h4 class="process">Process</h4>
+      </div>
       <p>상세페이지 내용</p>
     </div>
   </div>
@@ -15,18 +18,24 @@
     </div>
     <img class="coco" src="./assets/coco_smile.svg" alt="">
   </div>
-  <div class="course">
-    <div class="course-container" style="align-self: flex-end">
+  <div class="course-container">
+    <div class="course" style="align-self: flex-end">
       <img class="course-moon" src="./assets/img_cresent-moon-white.svg" alt="">
-      <div class="course-box" @click="selectWindow = windowTitle[0]; windowState = 1"></div>
+      <div class="course-box" @click="selectWindow = windowTitle[0]; windowState = 1">
+        <img src="./assets/course/html.svg" alt="">
+      </div>
     </div>
-    <div class="course-container" style="align-self: center">
+    <div class="course" style="align-self: center">
       <img class="course-moon" src="./assets/img_half-moon-white.svg" alt="">
-      <div class="course-box" @click="selectWindow = windowTitle[1]; windowState = 1"></div>
+      <div class="course-box" @click="selectWindow = windowTitle[1]; windowState = 1">
+        <img src="./assets/course/css.svg" alt="">
+      </div>
     </div>
-    <div class="course-container" style="align-self: flex-start">
+    <div class="course" style="align-self: flex-start">
       <img class="course-moon" src="./assets/img_full-moon-white.svg" alt="">
-      <div class="course-box" @click="selectWindow = windowTitle[2]; windowState = 1"></div>
+      <div class="course-box" @click="selectWindow = windowTitle[2]; windowState = 1">
+        <img src="./assets/course/js.svg" alt="">
+      </div>
     </div>
   </div>
   <div class="course-select">
@@ -39,16 +48,27 @@
 <script>
 import Header from "./components/layout/Header-dark.vue"
 import Background from "./components/layout/background-main.vue"
+import LoginPopup from "./components/layout/login-popup.vue"
 
 export default {
   name: 'App',
   components: {
-    Header, Background
+    Header, Background, LoginPopup
   },
   data() {
     return {
+      window : [
+        {
+          'login' : {
+            'title' : 'Login',
+            'explanation' : '',
+
+          }, 
+          'course' : {}
+        }
+      ],
       windowState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
-      windowTitle : ['HTML Process', 'CSS Process', 'JavaScript Process'],
+      windowTitle : ['HTML', 'CSS', 'JavaScript'],
       selectWindow : '',
       courseImg : ['./assets/img_cresent-moon-white.svg', './assets/img_half-moon-white.svg', './assets/img_full-moon-white.svg'],
       courseStyle : ['align-self: flex-end' ,'align-self: center','align-self: flex-start']
@@ -72,6 +92,14 @@ export default {
     --color_gray : #D2D2D2;
     --color_dark-gray : #898A8D;
 }
+body {
+  /* min-width: 1040px; */
+  background-image: url("./assets/background-main.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #F5F5F5;
+  overflow: hidden;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -80,34 +108,46 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-body {
-  background-image: url("./assets/background-main.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: #F5F5F5;
-  overflow: hidden;
-}
 div {
   box-sizing: border-box;
 }
+h4 {
+  margin: 0px;
+}
 .black-bg {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  align-items: center; 
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   margin: -20px; padding: 20px;
 }
 .white-bg {
-  width: 845px; height: 525px;
+  width: 800px; height: 500px;
   background: white;
-  border-radius: 8px;
+  border-radius: 20px;
   margin: auto;
-  padding: 50px;
+  padding: 0px 50px;
 }
+.windowTitle {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+  border-bottom: 2px solid rgba(138, 101, 242, 0.44);
+  font-size: 20px;
+  font-weight: 500;
+}
+.windowTitle .select-course-name {
+  color: #4D24A4;
+}
+.windowTitle .process {
+  margin-left: 10px;
+}
+/* 안내 문구(with 코코) */
 .guide {
   text-align: left;
   margin-top: 60px;
-  margin-left: 140px;
+  margin-left: 190px;
 }
 .guide .greeting {
   display: inline-block;
@@ -118,18 +158,22 @@ div {
 .guide .coco{
   width: 150px;
 }
-.course {
+/* html, css, javascript 코스 박스들 css */
+.course-container {
   height: 380px;
   display: flex; gap: 90px;
   justify-content: center;
   margin-top: 50px;
 }
-.course .course-box {
+.course-container .course-box {
   width: 220px; height: 250px;
   background-color: var(--color_white);
-  margin-top: 20px;
+  margin-top: 20px; padding: 25px;
   border-radius: 15px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.11);
+}
+.course-container .course-box img{
+  width: 100px;
 }
 .course-select {
   width: 600px;
@@ -145,6 +189,34 @@ div {
 .course-select .course-select-greeting {
   color: #8B8B8C;
 }
-
+@media screen and (max-width : 1040px) {
+  body {
+    overflow-y: scroll;
+  }
+  .guide {
+    display: flex;
+    justify-content: center;
+    margin: 60px 0px;
+  }
+  .guide .coco {
+    display: none;
+  }
+  .course-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 220px;
+    margin: auto;
+  }
+  .course-container .course {
+    align-self: center;
+  }
+  .course-container .course-moon {
+    display: none;
+  }
+  .course-select {
+    display: none;
+  }
+}
 
 </style>

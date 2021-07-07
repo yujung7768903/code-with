@@ -7,20 +7,25 @@
         <div class="nav-menu">
             <a href="" class="menu">Sign up</a>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <a href="" class="menu">Login</a>
+            <a class="menu" @click="loginPopupState = 1">Login</a>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
             <a href="" class="menu">My page</a>
+            <div>{{loginPopupState}}</div>
         </div>
     </div>
 
 </template>
 
 <script>
+
 export default {
     name: "header-dark",
+    components : {
+
+    },
     data() {
         return {
-            
+            loginPopupState : 0 //0은 닫힌 상태, 1은 열린 상태
         }
     }
 }
