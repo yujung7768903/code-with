@@ -1,5 +1,5 @@
 <template>
-<div class="black-bg" @click="loginPopupState = 0">
+<div class="black-bg" @click="state = 0">
     <div class="white-bg">
       <h4 class="popup-title">Login</h4>
       <p>상세페이지 내용</p>
@@ -8,8 +8,15 @@
 </template>
 
 <script>
+import {loginPopupState} from './Header-dark.vue'
+
 export default {
-    
+    name : 'login-popup',
+    data() {
+      return {
+        state : loginPopupState
+      }
+    }
 }
 </script>
 
