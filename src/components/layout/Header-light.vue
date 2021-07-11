@@ -1,16 +1,15 @@
 <template>
-    <div id="header">        
+    <div id="header-light">        
         <div id="logo">
-            <a href="../../App.vue"><img id="logo-letter" src="../../assets/logo-letter-purple.png" alt=""></a>
+            <router-link to="/"><img id="logo-letter" src="../../assets/logo-letter-purple.svg" alt=""></router-link>
             <img id="logo-img" src="../../assets/sub-page-logo.svg" alt="">
         </div>
         <div class="nav-menu">
-            <a href="" class="menu">Sign up</a>
-            <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <button class="menu" @click="loginPopupState = 1">Login</button>
-            <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <a href="" class="menu">My page</a>
-            <div>{{loginPopupState}}</div>
+            <router-link class="menu-light" to="/Signup">Sign up</router-link>
+            <img class="nav-menu-division" src="../../assets/nav-menu-division-dark.svg" alt="">
+            <button class="menu-light" @click="loginPopupState = 1">Login</button>
+            <img class="nav-menu-division" src="../../assets/nav-menu-division-dark.svg" alt="">
+            <router-link class="menu-light" to="/Mypage">My page</router-link>
         </div>
     </div>
 
@@ -34,6 +33,7 @@ export default {
 <style>
     body {
         margin: 0px;
+
     }
     div{
         box-sizing: border-box;
@@ -45,8 +45,9 @@ export default {
         background-color: rgba(0, 0, 0, 0);
         border: 0;
         outline: 0;
+        cursor: pointer;
     }
-    #header {
+    #header-light {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -68,7 +69,7 @@ export default {
         margin-left: 30px;
     }
 
-    .nav-menu .menu {
+    .nav-menu .menu-light {
         color: #4C1993;
         font-size: 18px;
     }
