@@ -1,5 +1,5 @@
 <template>
-<div class="black-bg" @click="state = 0">
+<div class="black-bg" @click="closeLoginPopup">
     <div class="white-bg">
       <h4 class="popup-title">Login</h4>
       <p>상세페이지 내용</p>
@@ -8,13 +8,20 @@
 </template>
 
 <script>
-import {loginPopupState} from './Header-dark.vue'
 
 export default {
     name : 'login-popup',
+    props : ['_loginPopupState'],
     data() {
       return {
-        state : loginPopupState
+        loginPopupState : this._loginPopupState
+      }
+    },
+    methods : {
+      closeLoginPopup() {
+        console.log("로그인 창 닫음");
+        this.loginPopupState = 0;
+        this.$emit('_loginClose');
       }
     }
 }
@@ -27,7 +34,7 @@ export default {
   width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
-  margin: -20px; padding: 20px;
+  margin: -20px;
 }
 .white-bg {
   width: 800px; height: 500px;

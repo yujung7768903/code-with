@@ -1,34 +1,19 @@
 <template>
   <Background />
-  <LoginPopup v-if="loginPopup == 1"/>
-  <div class="black-bg" v-if="windowState == 1" @click="windowState = 0">
-    <div class="white-bg">
-      <div class="windowTitle">
-        <h4 class="select-course-name">{{selectWindow}}</h4> <h4 class="process">Process</h4>
-      </div>
-      <p class="guide-to-start">시작할 단계를 선택하세요<br>이미 진행중인 프로세스가 있다면, 이어 진행하기가 가능합니다</p>
-      <div class="tutorial-container">
-        <div class="tutorial">
-          <div class="tutorial-moon"><img src="./assets/img_cresent-moon-purple.svg" alt=""></div>
-          <p>step1</p>
-          <button class="tutorial-step">튜토리얼</button>
-        </div>
-        <div class="tutorial">
-          <div class="tutorial-moon"><img src="./assets/img_half-moon-purple.svg" alt=""></div>
-          <p>step2</p>
-          <button class="tutorial-step">달력 만들기</button>
-        </div>
-        <div class="tutorial">
-          <div class="tutorial-moon"><img src="./assets/img_full-moon-purple.svg" alt=""></div>
-          <p>step3</p>
-          <button class="tutorial-step">회원가입 창 만들기</button>
-        </div>
-      </div>
-      <img class="continue-btn" src="./assets/btn_continue.svg" alt="">
-      <p class="start-first">처음부터 진행하기</p>
-    </div>
-  </div>
-  <Header/>
+  <LoginPopup
+    v-if="loginPopupState == 1" 
+    :_loginPopupState = "loginPopupState"
+    @_loginClose="loginClose"
+  ></LoginPopup>
+  <CoursePopup
+    v-if="coursePopupState == 1"
+    :_selectWindow = "selectWindow"
+    @_courseClose = "courseClose"
+  ></CoursePopup>
+  <Header 
+    :_loginPopupState = "loginPopupState"
+    @loginOpen="loginOpen"
+  ></Header>
   <div class="guide">
     <div class="greeting">
       <strong> Welcome!</strong><br>
@@ -40,21 +25,21 @@
   <div class="course-container">
     <div class="course" style="align-self: flex-end">
       <img class="course-moon" src="./assets/img_cresent-moon-white.svg" alt="">
-      <div class="course-box" @click="selectWindow = windowTitle[0]; windowState = 1">
+      <div class="course-box" @click="courseOpen(0)">
         <img src="./assets/course/html.svg" alt="">
         <div class="course-name">HTML<br>Course</div>
       </div>
     </div>
     <div class="course" style="align-self: center">
       <img class="course-moon" src="./assets/img_half-moon-white.svg" alt="">
-      <div class="course-box" @click="selectWindow = windowTitle[1]; windowState = 1">
+      <div class="course-box" @click="courseOpen(1)">
         <img src="./assets/course/css.svg" alt="">
         <div class="course-name">CSS<br>Course</div>
       </div>
     </div>
     <div class="course" style="align-self: flex-start">
       <img class="course-moon" src="./assets/img_full-moon-white.svg" alt="">
-      <div class="course-box" @click="selectWindow = windowTitle[2]; windowState = 1">
+      <div class="course-box" @click="courseOpen(2)">
         <img src="./assets/course/js.svg" alt="">
         <div class="course-name">JavaScript<br>Course</div>
       </div>
@@ -71,31 +56,37 @@
 import Header from "./components/layout/Header-dark.vue"
 import Background from "./components/layout/background-main.vue"
 import LoginPopup from "./components/layout/login-popup.vue"
-import {data} from "./components/layout/Header-dark.vue"
+import CoursePopup from './components/layout/course-popup.vue'
+
 
 export default {
   name: 'App',
   components: {
-    Header, Background, LoginPopup
+    Header, Background, LoginPopup,CoursePopup
   },
   data() {
     return {
-      window : [
-        {
-          'login' : {
-            'title' : 'Login',
-            'explanation' : '',
-
-          }, 
-          'course' : {}
-        }
-      ],
-      windowState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
-      windowTitle : ['HTML', 'CSS', 'JavaScript'],
-      selectWindow : '',
+      selectWindow : '', //선택된 코스 이름이 들어가는 변수
       courseImg : ['./assets/img_cresent-moon-white.svg', './assets/img_half-moon-white.svg', './assets/img_full-moon-white.svg'],
       courseStyle : ['align-self: flex-end' ,'align-self: center','align-self: flex-start'],
-      loginPopup : data
+      loginPopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
+      windowTitle : ['HTML', 'CSS', 'JavaScript'],
+      coursePopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
+    }
+  },
+  methods : {
+    loginOpen() {
+      this.loginPopupState = 1;
+    },
+    loginClose() {
+      this.loginPopupState = 0;
+    },
+    courseOpen(course) {
+      this.selectWindow = this.windowTitle[course]
+      this.coursePopupState = 1;
+    },
+    courseClose() {
+      this.coursePopupState = 0;
     }
   }
 }
@@ -138,71 +129,7 @@ div {
 h4 {
   margin: 0px;
 }
-/* 코스 창 관련 */
-.black-bg {
-  display: flex;
-  align-items: center; 
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  margin: -20px; padding: 20px;
-}
-.white-bg {
-  width: 800px; height: 500px;
-  background: white;
-  border-radius: 20px;
-  margin: auto;
-  padding: 0px 50px;
-}
-.windowTitle {
-  display: flex;
-  justify-content: center;
-  padding: 20px 0px;
-  border-bottom: 2px solid rgba(138, 101, 242, 0.44);
-  font-size: 20px;
-  font-weight: 500;
-}
-.windowTitle .select-course-name {
-  color: #4D24A4;
-}
-.windowTitle .process {
-  color: #606060;
-  margin-left: 10px;
-}
-.white-bg .guide-to-start {
-  color: #606060;
-  margin-top: 30px;
-}
-.white-bg .tutorial-container {
-  display: flex;
-  justify-content: center;
-  gap: 160px;
-  margin-top: 50px;
-}
-.white-bg .tutorial-container .tutorial {
-  width: 115px;
-}
-.white-bg .tutorial-container .tutorial .tutorial-moon {
-  width: 40px; height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-}
-.white-bg .tutorial-container .tutorial .tutorial-step {
-  height: 30px;
-  border: 1px solid #BDBDBD;
-  border-radius: 10px;
-}
-.white-bg .continue-btn {
-  margin-top: 60px;
-}
-.white-bg .start-first {
-  width: 120px;
-  color: #656565;
-  border-bottom: 1px solid #848484;
-  margin: 10px auto;
-}
+
 /* 안내 문구(with 코코) */
 .guide {
   text-align: left;

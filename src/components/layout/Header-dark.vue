@@ -7,10 +7,9 @@
         <div class="nav-menu">
             <a href="../../views/nav-menu-page.vue" class="menu">Sign up</a>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <button class="menu" @click="loginPopupState = 1">Login</button>
+            <button class="menu" @click="openLoginPopup">Login</button>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
             <a href="../../views/nav-menu-page.vue" class="menu">My page</a>
-            <div>{{loginPopupState}}</div>
         </div>
     </div>
 
@@ -20,12 +19,20 @@
 
 export default {
     name: "header-dark",
+    props : ['_loginPopupState'],
     components : {
 
     },
     data() {
         return {
-            loginPopupState : 0 //0은 닫힌 상태, 1은 열린 상태
+            loginPopupState : this._loginPopupState //0은 닫힌 상태, 1은 열린 상태
+        }
+    },
+    methods : {
+        openLoginPopup() {
+            console.log("로그인 창 띄움");
+            this.loginPopupState = 1;
+            this.$emit('loginOpen');
         }
     }
 }
