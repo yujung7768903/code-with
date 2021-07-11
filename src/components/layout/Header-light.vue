@@ -1,15 +1,16 @@
 <template>
     <div id="header">        
         <div id="logo">
-            <a href="../../App.vue"><img id="logo-letter" src="../../assets/logo-letter.png" alt=""></a>
-            <img id="logo-img" src="../../assets/main-page-logo.svg" alt="">
+            <a href="../../App.vue"><img id="logo-letter" src="../../assets/logo-letter-purple.png" alt=""></a>
+            <img id="logo-img" src="../../assets/sub-page-logo.svg" alt="">
         </div>
         <div class="nav-menu">
-            <a href="../../views/nav-menu-page.vue" class="menu">Sign up</a>
+            <a href="" class="menu">Sign up</a>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <button class="menu" @click="openLoginPopup">Login</button>
+            <button class="menu" @click="loginPopupState = 1">Login</button>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <a href="../../views/nav-menu-page.vue" class="menu">My page</a>
+            <a href="" class="menu">My page</a>
+            <div>{{loginPopupState}}</div>
         </div>
     </div>
 
@@ -18,21 +19,13 @@
 <script>
 
 export default {
-    name: "header-dark",
-    props : ['_loginPopupState'],
+    name: "header-light",
     components : {
 
     },
     data() {
         return {
-            loginPopupState : this._loginPopupState //0은 닫힌 상태, 1은 열린 상태
-        }
-    },
-    methods : {
-        openLoginPopup() {
-            console.log("로그인 창 띄움");
-            this.loginPopupState = 1;
-            this.$emit('loginOpen');
+            loginPopupState : 0 //0은 닫힌 상태, 1은 열린 상태
         }
     }
 }
@@ -58,7 +51,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         width: 100%; height: 70px;
-        background-color: rgba(254, 249, 249, 0.1);
+        background-color: white;
         border-radius: 20px;
         padding: 0px 30px;
         font-weight: 500;
@@ -76,7 +69,7 @@ export default {
     }
 
     .nav-menu .menu {
-        color: #FFFFFF;
+        color: #4C1993;
         font-size: 18px;
     }
     .nav-menu .nav-menu-division {
