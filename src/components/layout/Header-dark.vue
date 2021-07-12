@@ -1,15 +1,15 @@
 <template>
     <div id="header">        
         <div id="logo">
-            <a href="../../App.vue"><img id="logo-letter" src="../../assets/logo-letter.png" alt=""></a>
+            <a href=""><img id="logo-letter" src="../../assets/logo-letter.png" alt=""></a>
             <img id="logo-img" src="../../assets/main-page-logo.svg" alt="">
         </div>
         <div class="nav-menu">
-            <a href="../../views/nav-menu-page.vue" class="menu">Sign up</a>
+            <router-link class="menu" to="/Signup">Sign up</router-link>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
             <button class="menu" @click="openLoginPopup">Login</button>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <a href="../../views/nav-menu-page.vue" class="menu">My page</a>
+            <router-link class="menu" to="/Mypage">My page</router-link>
         </div>
     </div>
 
@@ -32,7 +32,7 @@ export default {
         openLoginPopup() {
             console.log("로그인 창 띄움");
             this.loginPopupState = 1;
-            this.$emit('loginOpen');
+            this.$emit('_loginOpen');
         }
     }
 }
@@ -61,6 +61,7 @@ export default {
         background-color: rgba(254, 249, 249, 0.1);
         border-radius: 20px;
         padding: 0px 30px;
+        color: white;
         font-weight: 500;
     }
     #logo {

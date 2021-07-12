@@ -7,7 +7,6 @@
         <img class="middle" src="../../assets/background-tag-body.svg" :style="imgPosition[4]" alt="">
         <img class="end" src="../../assets/background-tag-style.svg" :style="imgPosition[5]" alt="">
     </div>
-    <!-- <img v-for="(repeat, i) in repeatIndex " :key="i" :class="shining[repeat]" :src="img[repeat]" :style="imgPosition[i]" alt=""> -->
 </template>
 
 <script>
