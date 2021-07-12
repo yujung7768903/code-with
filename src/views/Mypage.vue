@@ -1,11 +1,14 @@
 <template>
     <div id="mypage">
-        <HeaderLight></HeaderLight>
         <LoginPopup
             v-if="loginPopupState == 1" 
             :_loginPopupState = "loginPopupState"
             @_loginClose="loginClose"
         ></LoginPopup>
+        <HeaderLight
+            :_loginPopupState = "loginPopupState"
+            @_loginOpen = "loginOpen"
+        ></HeaderLight>
         <div>mypage</div>
     </div>
 </template>

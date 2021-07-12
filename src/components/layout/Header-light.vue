@@ -32,7 +32,7 @@ export default {
         openLoginPopup() {
             console.log("로그인 창 띄움");
             this.loginPopupState = 1;
-            this.$emit('loginOpen');
+            this.$emit('_loginOpen');
         }
     }
 }
