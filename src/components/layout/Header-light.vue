@@ -7,7 +7,7 @@
         <div class="nav-menu">
             <router-link class="menu-light" to="/Signup">Sign up</router-link>
             <img class="nav-menu-division" src="../../assets/nav-menu-division-dark.svg" alt="">
-            <button class="menu-light" @click="loginPopupState = 1">Login</button>
+            <button class="menu-light" @click="openLoginPopup">Login</button>
             <img class="nav-menu-division" src="../../assets/nav-menu-division-dark.svg" alt="">
             <router-link class="menu-light" to="/Mypage">My page</router-link>
         </div>
@@ -19,12 +19,20 @@
 
 export default {
     name: "header-light",
+    props : ['_loginPopupState'],
     components : {
 
     },
     data() {
         return {
-            loginPopupState : 0 //0은 닫힌 상태, 1은 열린 상태
+            loginPopupState : this._loginPopupState //0은 닫힌 상태, 1은 열린 상태
+        }
+    },
+    methods : {
+        openLoginPopup() {
+            console.log("로그인 창 띄움");
+            this.loginPopupState = 1;
+            this.$emit('loginOpen');
         }
     }
 }

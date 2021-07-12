@@ -13,7 +13,7 @@
         ></CoursePopup>
         <Header 
             :_loginPopupState = "loginPopupState"
-            @loginOpen="loginOpen"
+            @_loginOpen="loginOpen"
         ></Header>
         <div class="router-container">
             <router-view></router-view>
