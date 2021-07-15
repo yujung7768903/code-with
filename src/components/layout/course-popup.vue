@@ -1,5 +1,5 @@
 <template>
-<div class="black-bg" @click="closeCoursePopup">
+<div class="course-popup" @click="closeCoursePopup">
     <div class="white-bg">
       <div class="windowTitle">
         <h4 class="select-course-name">{{selectWindow}}</h4> <h4 class="process">Process</h4>
@@ -47,12 +47,13 @@ export default {
 </script>
 
 <style>
-.black-bg {
+.course-popup {
+  position: fixed;
   display: flex;
   align-items: center; 
   width: 100%; height: 100%;
+  margin: -20px;
   background: rgba(0, 0, 0, 0.5);
-  position: fixed;
 }
 .white-bg {
   width: 800px; height: 500px;

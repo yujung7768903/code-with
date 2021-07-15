@@ -15,9 +15,6 @@
             :_loginPopupState = "loginPopupState"
             @_loginOpen="loginOpen"
         ></Header>
-        <div class="router-container">
-            <router-view></router-view>
-        </div>
         <div class="guide">
             <div class="greeting">
             <strong> Welcome!</strong><br>
