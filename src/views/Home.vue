@@ -15,9 +15,6 @@
             :_loginPopupState = "loginPopupState"
             @_loginOpen="loginOpen"
         ></Header>
-        <div class="router-container">
-            <router-view></router-view>
-        </div>
         <div class="guide">
             <div class="greeting">
             <strong> Welcome!</strong><br>
@@ -27,26 +24,26 @@
             <img class="coco" src="../assets/coco_smile.svg" alt="">
         </div>
         <div class="course-container">
-            <div class="course" style="align-self: flex-end">
-            <img class="course-moon" src="../assets/img_cresent-moon-white.svg" alt="">
-            <div class="course-box" @click="courseOpen(0)">
-                <img src="../assets/course/html.svg" alt="">
-                <div class="course-name">HTML<br>Course</div>
-            </div>
+            <div class="course" style="align-self: flex-end;">
+              <img class="course-moon" src="../assets/img_cresent-moon-white.svg" alt="">
+              <div class="course-box" @click="courseOpen(0)">
+                  <img src="../assets/course/html.svg" alt="">
+                  <div class="course-name">HTML<br>Course</div>
+              </div>
             </div>
             <div class="course" style="align-self: center">
-            <img class="course-moon" src="../assets/img_half-moon-white.svg" alt="">
-            <div class="course-box" @click="courseOpen(1)">
-                <img src="../assets/course/css.svg" alt="">
-                <div class="course-name">CSS<br>Course</div>
-            </div>
+              <img class="course-moon" src="../assets/img_half-moon-white.svg" alt="">
+              <div class="course-box" @click="courseOpen(1)">
+                  <img src="../assets/course/css.svg" alt="">
+                  <div class="course-name">CSS<br>Course</div>
+              </div>
             </div>
             <div class="course" style="align-self: flex-start">
-            <img class="course-moon" src="../assets/img_full-moon-white.svg" alt="">
-            <div class="course-box" @click="courseOpen(2)">
-                <img src="../assets/course/js.svg" alt="">
-                <div class="course-name">JavaScript<br>Course</div>
-            </div>
+              <img class="course-moon" src="../assets/img_full-moon-white.svg" alt="">
+              <div class="course-box" @click="courseOpen(2)">
+                  <img src="../assets/course/js.svg" alt="">
+                  <div class="course-name">JavaScript<br>Course</div>
+              </div>
             </div>
         </div>
         <div class="course-select">
@@ -149,6 +146,9 @@ h4 {
   justify-content: center;
   margin-top: 50px;
 }
+.course-container .course .course-moon {
+  opacity: 0.6;
+}
 .course-container .course-box {
   width: 220px; height: 250px;
   background-color: var(--color_white);
@@ -166,6 +166,13 @@ h4 {
   font-size: 20px;
   font-weight: 850;
 }
+  /* 코스 박스들 hover 효과 */
+  .course:hover {
+    transform: translateY(-10px);
+  }
+  .course:hover .course-moon{
+    opacity: 1;
+  }
 /* 코스 선택하라는 안내 */
 .course-select {
   width: 600px;

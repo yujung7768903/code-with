@@ -1,5 +1,5 @@
 <template>
-<div class="black-bg" @click="closeCoursePopup">
+<div class="course-popup" @click="closeCoursePopup">
     <div class="white-bg">
       <div class="windowTitle">
         <h4 class="select-course-name">{{selectWindow}}</h4> <h4 class="process">Process</h4>
@@ -22,7 +22,7 @@
           <button class="tutorial-step">회원가입 창 만들기</button>
         </div>
       </div>
-      <img class="continue-btn" src="../../assets/btn_continue.svg" alt="">
+      <img class="continue-btn" src="../../assets/btn_continue.svg" alt="continue-btn">
       <p class="start-first">처음부터 진행하기</p>
     </div>
 </div>
@@ -47,12 +47,14 @@ export default {
 </script>
 
 <style>
-.black-bg {
+.course-popup {
+  position: fixed;
   display: flex;
   align-items: center; 
   width: 100%; height: 100%;
+  margin: -20px;
   background: rgba(0, 0, 0, 0.5);
-  position: fixed;
+  z-index: 1;
 }
 .white-bg {
   width: 800px; height: 500px;
