@@ -22,7 +22,7 @@
           <button class="tutorial-step">회원가입 창 만들기</button>
         </div>
       </div>
-      <img class="continue-btn" src="../../assets/btn_continue.svg" alt="">
+      <img class="continue-btn" src="../../assets/btn_continue.svg" alt="continue-btn">
       <p class="start-first">처음부터 진행하기</p>
     </div>
 </div>

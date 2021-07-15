@@ -9,7 +9,17 @@
         <p>비밀번호</p>
         <input type="password">
       </div>
-    </div>    
+      <div class="signup-guide-container">
+        <span class="guide-to-signup">아직 회원이 아니세요?</span>
+        <router-link to="/Signup" class="move-to-signup">회원가입</router-link>
+      </div>
+      <img class="login-btn" src="../../assets/btn_login.svg" alt="btn_login">
+      <div class="find-container">
+        <span class="id">아이디 찾기</span>
+        <span> | </span>
+        <span class="password">비밀번호 찾기</span>
+      </div>
+    </div>
 </div>
 </template>
 
@@ -54,8 +64,10 @@ export default {
   justify-content: center;
   padding: 20px 0px;
   border-bottom: 2px solid rgba(138, 101, 242, 0.44);
+  color: #4D24A4;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 700;
+
 }
 .login-popup .white-bg .guide-to-login {
   margin-top: 30px;
@@ -67,11 +79,40 @@ export default {
   margin: auto;
 }
 .login-popup .white-bg .form-container p{
+  float: left;
   margin-left: 25px;
 }
 .login-popup .white-bg .form-container input{
   width: 100%; height: 30px;
   border: 1px solid #C4C4C4;
   border-radius: 10px;
+}
+.white-bg .signup-guide-container {
+  margin-top: 15px;
+}
+.white-bg .guide-to-signup {
+  color: #606060;
+}
+.white-bg .move-to-signup {
+  display: inline-block;
+  margin-left: 5px;
+  color: #765FD7;
+  font-weight: 700;
+  cursor: pointer;
+}
+.white-bg .login-btn {
+  margin-top: 20px;
+  cursor: pointer;
+}
+.find-container {
+  font-size: 14px;
+}
+.find-container .id {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.find-container .password {
+  margin-left: 5px;
+  cursor: pointer;
 }
 </style>
