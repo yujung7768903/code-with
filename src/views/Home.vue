@@ -24,7 +24,7 @@
             <img class="coco" src="../assets/coco_smile.svg" alt="">
         </div>
         <div class="course-container">
-            <div class="course" style="align-self: flex-end">
+            <div class="course" style="align-self: flex-end;">
               <img class="course-moon" src="../assets/img_cresent-moon-white.svg" alt="">
               <div class="course-box" @click="courseOpen(0)">
                   <img src="../assets/course/html.svg" alt="">
@@ -167,6 +167,9 @@ h4 {
   font-weight: 850;
 }
   /* 코스 박스들 hover 효과 */
+  .course:hover {
+    transform: translateY(-10px);
+  }
   .course:hover .course-moon{
     opacity: 1;
   }

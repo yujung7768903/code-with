@@ -54,6 +54,7 @@ export default {
   width: 100%; height: 100%;
   margin: -20px;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 .white-bg {
   width: 800px; height: 500px;
