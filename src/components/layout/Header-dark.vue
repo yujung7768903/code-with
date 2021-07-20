@@ -9,7 +9,8 @@
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
             <button class="menu" @click="openLoginPopup">Login</button>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <router-link class="menu" to="/Mypage">My page</router-link>
+            <button class="menu" @click="openLoginPopup" v-if="loginState == 0">My page</button>
+            <router-link class="menu" to="/Mypage" v-if="loginState == 1">My page</router-link>
         </div>
     </div>
 
@@ -25,7 +26,8 @@ export default {
     },
     data() {
         return {
-            loginPopupState : this._loginPopupState //0은 닫힌 상태, 1은 열린 상태
+            loginPopupState : this._loginPopupState, //0은 닫힌 상태, 1은 열린 상태
+            loginState : 0 //0은 로그인이 안 된 상태, 1은 로그인이 된 상태
         }
     },
     methods : {
