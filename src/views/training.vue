@@ -1,6 +1,6 @@
 <template>
   <!--html에서는 띄어쓰기 하지 말기-->
-  <body onload="ready()">
+  <div id="training">
     <section class="left-section">
       <div class="left-header">
         <router-link class="title-btn" :to="{ name: '' }">CodeWith</router-link>
@@ -22,11 +22,14 @@
           </div>
         </div>
       </div>
-        <p class="codepen" data-height="300" data-theme-id="39664" data-default-tab="html,result" data-slug-hash="21881c03a017142cf6350cb206ac74f2" data-editable="true" data-user="futuredevsy" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/futuredevsy/pen/21881c03a017142cf6350cb206ac74f2">
-  </a> by FutureDevSY (<a href="https://codepen.io/futuredevsy">@futuredevsy</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
+      <!-- 코드 에디터 부분 -->
+      <div id="code-editor">
+          <p class="codepen" data-height="100%" data-theme-id="39664" data-default-tab="html,result" data-slug-hash="21881c03a017142cf6350cb206ac74f2" data-editable="true" data-user="futuredevsy" style="box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+          <span>See the Pen <a href="https://codepen.io/futuredevsy/pen/21881c03a017142cf6350cb206ac74f2">
+          </a> by FutureDevSY (<a href="https://codepen.io/futuredevsy">@futuredevsy</a>)
+          on <a href="https://codepen.io">CodePen</a>.</span>
+          </p>
+      </div>
 
       <footer>
         <div class="form-buttons">
@@ -111,7 +114,7 @@
         </div>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -156,7 +159,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
-body {
+#training {
   margin: 0;
   width: 100vw;
   height: 100vh;
@@ -166,8 +169,6 @@ body {
   justify-content: space-between;
   overflow: hidden;
 }
-/*code editor */
-
 
 #result-box {
   display: flex;
@@ -175,13 +176,17 @@ body {
   color: #333333;
   margin-left: 100px;
 }
-
-iframe {
+#training #code-editor {
+  height: calc(100% - 134px);
+}
+#training #code-editor div{
+  height: 100%;
+}
+#training iframe {
   display: flex;
   width: 600px;
-  height: 700px;
   margin-left:0; margin-top: 10px;
-  background-color: #765fd7;
+  background-color: white;
   z-index: 1;
 }
 
@@ -202,6 +207,7 @@ iframe {
 }
 .left-header {
   display: flex;
+  height: 67px;
   flex-direction: row;
   align-content: center;
 }
@@ -432,10 +438,10 @@ form {
 
 footer {
   display: flex;
+  width: 900px; height: 67px;
   flex-direction: row;
   justify-content: space-between;
   margin: 30px auto auto 140px;
-  width: 900px;
 }
 
 footer img {
