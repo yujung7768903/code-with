@@ -99,7 +99,7 @@ export default {
   margin: auto;
   padding: 0px 50px;
 }
-.popup-title {
+.login-popup .popup-title {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -109,21 +109,21 @@ export default {
   font-size: 20px;
   font-weight: 700;
 }
-.login-form-hide {
+.login-popup .login-form-hide {
   position: absolute;
   top: 24px; right: 50px;
   width: 19px; height: 19px;
   border-radius: 50px;
 }
-.login-form-hide:hover {
+.login-popup .login-form-hide:hover {
   background-color: rgb(0, 0, 0, 0.08);
   cursor: pointer;
 }
-.hide-btn {
+.login-popup .hide-btn {
   width: 12px; height: 12px;
   margin: auto;
 }
-.guide-to-login {
+.login-popup .guide-to-login {
   margin-top: 30px;
   color: #606060;
 }
