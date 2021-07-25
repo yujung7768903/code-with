@@ -46,8 +46,8 @@ export default {
         return {
             loginPopupState : 0,
             signupForm : {
-                signupName : '',
                 signupId : '',
+                signupName : '',
                 signupEmail : '',
                 signupPassword : '',
             },
@@ -69,9 +69,6 @@ export default {
                 this.signupPasswordGuideDisplay = 0
             }
         },
-        nullCheck() {
-
-        },
         signupConfirm() {
             console.log("signupConfirm 실행됨",Object.keys(this.signupForm).length );
             for (const key in this.signupForm) {
@@ -84,20 +81,20 @@ export default {
                         this.signupPasswordGuideDisplay = 1
                     } else { // 일치하는 경우
                         this.signupPasswordGuideDisplay = 0
-                        onsubmit();
+                        this.signupFormSubmit();
                     }
                     console.log("비어있는 항목이 없습니다.");
                 }
             }
         },
-        async onsubmit() {
+        async signupFormSubmit() {
             const response = await axios.post('http://3.35.217.11/api/signup', {
                 id : this.signupForm.signupId,
+                name : this.signupForm.signupName,
                 email : this.signupForm.signupEmail,
-                password : this.signupForm.signupPassword,
-                name : this.signupForm.signupName
+                password : this.signupForm.signupPassword
             })
-            console.log("onsubmit 함수 실행");
+            console.log("signupFormSubmit 함수 실행");
             console.log(response);
         }
     }

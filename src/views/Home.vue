@@ -192,6 +192,9 @@ h4 {
   body {
     overflow-y: scroll;
   }
+  #header .nav-menu {
+    display: none;
+  }
   .guide {
     display: flex;
     justify-content: center;
