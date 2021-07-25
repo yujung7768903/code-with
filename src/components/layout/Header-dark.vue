@@ -12,6 +12,7 @@
             <button class="menu" @click="openLoginPopup" v-if="loginState == 0">My page</button>
             <router-link class="menu" to="/Mypage" v-if="loginState == 1">My page</router-link>
         </div>
+        <button class="nav-hamburger-menu" type="button"><img src="../../assets/btn_hamburger.svg" alt=""></button>
     </div>
 
 </template>
@@ -84,5 +85,8 @@ export default {
     }
     .nav-menu .nav-menu-division {
         margin: 0px 14px;
+    }
+    .nav-hamburger-menu {
+        display: none;
     }
 </style>

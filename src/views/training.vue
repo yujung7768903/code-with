@@ -581,7 +581,6 @@ h3 {
 button:hover {
   cursor: pointer;
 }
-/**    */
 
 .triangle {
   width: 10px;
