@@ -74,6 +74,8 @@ export default {
       loginPopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
       windowTitle : ['HTML', 'CSS', 'JavaScript'],
       coursePopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
+      navMenuPopupState : 0, //0은 팝업이 닫힌 상태, 1은 팝업이 열린 상태
+
     }
   },
   methods : {
