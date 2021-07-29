@@ -1,8 +1,8 @@
 <template>
-<div class="course-popup">
+<div id="course-popup">
   <div class="black-bg" @click="closeCoursePopup">
   </div>
-  <div class="white-bg">
+  <div class="course-popup-content">
     <div class="login-form-hide">
       <img class="hide-btn" @click="closeCoursePopup" src="../../assets/btn_close.svg" alt="">
     </div>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style>
-.course-popup {
+#course-popup {
   position: relative;
   display: flex;
   align-items: center; 
@@ -66,7 +66,7 @@ export default {
   width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
-.course-popup .white-bg {
+#course-popup .course-popup-content {
   position: relative;
   width: 800px; height: 500px;
   background: white;
@@ -75,17 +75,17 @@ export default {
   padding: 0px 50px;
   z-index: 2;
 }
-.course-popup .login-form-hide {
+#course-popup .login-form-hide {
   position: absolute;
   top: 24px; right: 50px;
   width: 19px; height: 19px;
   border-radius: 50px;
 }
-.course-popup .login-form-hide:hover {
+#course-popup .login-form-hide:hover {
   background-color: rgb(0, 0, 0, 0.08);
   cursor: pointer;
 }
-.course-popup .hide-btn {
+#course-popup .hide-btn {
   width: 12px; height: 12px;
   margin: auto;
 }

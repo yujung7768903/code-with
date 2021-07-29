@@ -2,7 +2,7 @@
 <div class="login-popup">
   <div class="black-bg" @click="closeLoginPopup">
   </div>
-  <div class="white-bg">
+  <div class="login-popup-content">
     <div class="login-form-hide">
       <img class="hide-btn" @click="closeLoginPopup" src="../../assets/btn_close.svg" alt="">
     </div>
@@ -88,7 +88,7 @@ export default {
   width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
-.login-popup .white-bg {
+.login-popup .login-popup-content {
   position: relative;
   display: flex;
   flex-direction: column;

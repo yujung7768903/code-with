@@ -74,6 +74,8 @@ export default {
       loginPopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
       windowTitle : ['HTML', 'CSS', 'JavaScript'],
       coursePopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
+      navMenuPopupState : 0, //0은 팝업이 닫힌 상태, 1은 팝업이 열린 상태
+
     }
   },
   methods : {
@@ -116,6 +118,7 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     padding: 20px;
+    padding-bottom: 40px;
 }
 div {
   box-sizing: border-box;
@@ -132,7 +135,6 @@ h4 {
 }
 .guide .greeting {
   display: inline-block;
-  width: 350px;
   color: var(--color_white);
   text-align: left;
 }
@@ -192,6 +194,20 @@ h4 {
   body {
     overflow-y: scroll;
   }
+  #header .nav-menu {
+    display: none;
+  }
+  #header .nav-hamburger-menu {
+    display: block;
+    width: 28px; height: 28px;
+    padding: 0px;
+  }
+  #header .nav-hamburger-menu img{
+    width: 100%;
+  }
+  #header-light .nav-menu {
+    display: none;
+  }
   .guide {
     display: flex;
     justify-content: center;
@@ -204,7 +220,7 @@ h4 {
     flex-direction: column;
     justify-content: flex-start;
     gap: 10px;
-    width: 220px;
+    width: 220px; height: 100%;
     margin: auto;
   }
   .course-container .course {
