@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <div id="logo">
-            <a href=""><img id="logo-letter" src="../../assets/logo-letter.png" alt=""></a>
+            <router-link to="/"><img id="logo-letter" src="../../assets/logo-letter.png" alt=""></router-link>
             <img id="logo-img" src="../../assets/main-page-logo.svg" alt="">
         </div>
         <div class="nav-menu">
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import navMenuPopup from "./nav-menu-popup.vue"
+import NavMenuPopup from "./nav-menu-popup.vue"
 
 export default {
     name: "header-dark",
     props : ['_loginPopupState'],
     components : {
-        navMenuPopup
+        NavMenuPopup
     },
     data() {
         return {
