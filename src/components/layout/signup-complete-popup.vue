@@ -10,7 +10,7 @@
                 <div class="right">
                     <p class="complete-guide">SIGNUP<br>COMPLETE!</p>
                     <p class="complete-greeting">
-                        {{userName}}님 환영합니다!<br>여러분의 코딩 학습을 위하여 최선을 다하겠습니다.
+                       <strong>{{userName}}</strong>님 환영합니다!<br>여러분의 코딩 학습을 위하여 최선을 다하겠습니다.
                     </p>
                 </div>
             </div>
