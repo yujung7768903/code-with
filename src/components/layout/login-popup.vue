@@ -6,8 +6,8 @@
       <div class="login-form-hide">
         <img class="hide-btn" @click="closeLoginPopup" src="../../assets/btn_close.svg" alt="">
       </div>
-      <h4 class="popup-title">Login</h4>
-      <p class="guide-to-login">로그인을 하면 달력 만들기, 회원가입 창 만들기와 같은 실습을 통해<br>html, css, javascript에 대한 개념을 무료로 학습하실 수 있습니다.</p>
+      <h4 class="popup-title">{{popup.popupTitle}}</h4>
+      <p class="guide-to-login">{{popup.popupInfo[popup.index]}}</p>
         <div class="form-container">
           <div class="user-inform">
             <!-- 아이디 -->
@@ -26,30 +26,12 @@
         </div>
         <button type="submit"><img class="login-btn" src="../../assets/btn_login.svg" alt="btn_login"></button>
         <div class="find-container">
-          <span class="id">아이디 찾기</span>
-          <span> | </span>
-          <span class="password">비밀번호 찾기</span>
+          <span @click="findId" v-if="popup.popupSort == 'password' || popup.popupSort == 'login'">아이디 찾기</span>
+          <span v-if="popup.popupSort == 'login'"> | </span>
+          <span @click="findPassword" v-if="popup.popupSort == 'id' || popup.popupSort == 'login'">비밀번호 찾기</span>
+          <span v-if="popup.popupSort == 'id' || popup.popupSort == 'password'"> | </span>
+          <span @click="backLogin" v-if="popup.popupSort == 'id' || popup.popupSort == 'password'">로그인</span>
         </div>
-      <!-- <div class="form-container">
-        <div class="user-inform">
-          <input v-model="loginId" placeholder="아이디" type="text">
-          <div class="login-guide" v-if="idGuideDisplay == 1">아이디를 입력해주세요.</div>
-        </div>
-        <div class="user-inform">
-          <input v-model="userPassword" placeholder="비밀번호" type="password">
-          <div class="login-guide" v-if="passwordGuideDisplay == 1">비밀번호를 입력해주세요.</div>
-        </div>
-      </div>
-      <div class="signup-guide-container">
-        <span class="guide-to-signup">아직 회원이 아니세요?</span>
-        <router-link to="/Signup" class="move-to-signup">회원가입</router-link>
-      </div>
-      <img class="login-btn" @click="loginGuide" src="../../assets/btn_login.svg" alt="btn_login">
-      <div class="find-container">
-        <span class="id">아이디 찾기</span>
-        <span> | </span>
-        <span class="password">비밀번호 찾기</span>
-      </div> -->
   </form>
 </div>
 </template>
@@ -58,16 +40,26 @@
 import axios from "axios"
 export default {
     name : 'login-popup',
-    props : ['_loginPopupState'],
+    props : ['_loginPopupState', '_loginState'],
     data() {
       return {
+        popup : {
+          index : 0,
+          popupTitle : '로그인',
+          popupSort : 'login',
+          popupInfo : ['달력 만들기, 회원가입 창 만들기와 같은 실습을 통해 html, css, javascript을 무료로 학습하실 수 있습니다.', '', '가입정보를 입력하신 후 이메일 발송을 클릭하시면 임시비밀번호가 발송 됩니다.'],
+        },
         loginPopupState : this._loginPopupState,
         loginId : '',
         loginPassword : '',
         idGuideDisplay : 0, //1일 되면 아이디 입력 메세지 보여줌
         passwordGuideDisplay : 0, //1일 되면 비번 입력 메세지 보여줌
         loginNullcheck : true, //true : 아이디,비밀번호가 비어있음, false : 아이디, 비밀번호가 모두 입력됨(로그인 가능 상태)
+        loginState : 0 //0은 로그인이 안 된 상태, 1은 로그인이 된 상태
       }
+    },
+    created() {
+      this.loginState = this._loginState;
     },
     methods : {
       closeLoginPopup() {
@@ -102,10 +94,11 @@ export default {
             userId : this.loginId,
             password : this.loginPassword
           })
-          .then(res => {
+          .then(res => { //로그인 성공
             console.log(res);
             if(res.data){
-              // window.location.reload();
+              this.closeLoginPopup();
+              this.completeLogin();
             }else{
               alert("아이디 또는 비밀번호가 틀렸습니다.");
             }
@@ -114,6 +107,37 @@ export default {
               console.log(err);
           })
         }
+      },
+      userInfo() {
+        console.log("userInfo 함수를 수행합니다.");
+        axios
+        .get("http://3.35.217.11/memberInfo")
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      },
+      completeLogin() {
+        this.loginState = 1
+        this.$emit('_completeLogin', this.loginState)
+        this.userInfo();
+      },
+      findId() {
+        this.popup.index = 1
+        this.popup.popupTitle = '아이디 찾기';
+        this.popup.popupSort = 'id'
+      },
+      findPassword() {
+        this.popup.index = 2
+        this.popup.popupTitle = '비밀번호 찾기';
+        this.popup.popupSort = 'password'
+      },
+      backLogin() {
+        this.popup.index = 0
+        this.popup.popupTitle = '로그인';
+        this.popup.popupSort = 'login'
       }
     }
   }
@@ -174,6 +198,7 @@ export default {
 }
 #login-popup .guide-to-login {
   margin-top: 30px;
+  font-size: 14px;
   color: #606060;
 }
 
@@ -220,12 +245,8 @@ export default {
   font-size: 14px;
   margin: 15px 0 35px;
 }
-.find-container .id {
-  margin-right: 5px;
-  cursor: pointer;
-}
-.find-container .password {
-  margin-left: 5px;
+.find-container span {
+  margin: 0 5px;
   cursor: pointer;
 }
 </style>
