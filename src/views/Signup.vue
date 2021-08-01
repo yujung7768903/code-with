@@ -1,5 +1,10 @@
 <template>
     <div id="signup">
+        <SignupCompletePopup
+            v-if="signupComplete == 1"
+            :_userName = "userName"
+        >
+        </SignupCompletePopup>
         <LoginPopup
             v-if="loginPopupState == 1" 
             :_loginPopupState = "loginPopupState"
@@ -9,10 +14,6 @@
             :_loginPopupState = "loginPopupState"
             @_loginOpen = "loginOpen"
         ></HeaderLight>
-        <SignupCompletePopup
-            v-if="signupComplete == 1"
-        >
-        </SignupCompletePopup>
         <div class="signup-container">
             <!-- <div class="form-container">
                 <p>이름</p>
@@ -64,6 +65,7 @@ export default {
     data() {
         return {
             loginPopupState : 0,
+            userName : '',
             signupForm : {
                 signupId : '',
                 signupName : '',
@@ -97,7 +99,6 @@ export default {
             }
         },
         onSubmit() {
-            this.passwordCheck();
             this.nullCheck();
             if (this.signupFormNullcheck == false) {
                 if (this.signupForm.signupPassword != this.signupPasswordConfirm) { //일치하지 않는 경우
@@ -121,6 +122,8 @@ export default {
             })
             .then(res => {
                 console.log(res);
+                this.userName = res.data.name
+                this.signupComplete = 1;
             })
             .catch(err => {
                 console.log(err);

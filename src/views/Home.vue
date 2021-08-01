@@ -4,7 +4,9 @@
         <LoginPopup
             v-if="loginPopupState == 1" 
             :_loginPopupState = "loginPopupState"
+            :_loginState = "login.loginState"
             @_loginClose="loginClose"
+            @_completeLogin = "changeLoginState"
         ></LoginPopup>
         <CoursePopup
             v-if="coursePopupState == 1"
@@ -13,11 +15,13 @@
         ></CoursePopup>
         <Header 
             :_loginPopupState = "loginPopupState"
+            :_loginState = "login.loginState"
             @_loginOpen="loginOpen"
+            @_logout = "logout"
         ></Header>
         <div class="guide">
             <div class="greeting">
-            <strong> Welcome!</strong><br>
+            <strong>{{login.userName}}</strong><br>
             Free Course For Beginner<br>
             당신의 코딩학습에  코드윗이 함께할게요.
             </div>
@@ -75,7 +79,10 @@ export default {
       windowTitle : ['HTML', 'CSS', 'JavaScript'],
       coursePopupState : 0, //0은 창 닫힌 상태, 1은 창 열린 상태
       navMenuPopupState : 0, //0은 팝업이 닫힌 상태, 1은 팝업이 열린 상태
-
+      login : {
+        loginState : 0, //0은 로그인이 안 된 상태, 1은 로그인이 된 상태
+        userName : 'Welcome!'
+      }
     }
   },
   methods : {
@@ -91,6 +98,14 @@ export default {
     },
     courseClose() {
       this.coursePopupState = 0;
+    },
+    changeLoginState(loginState) {
+      this.login.loginState = loginState; //loginState 1로 변경(로그인 완료)
+      console.log("loginState : ", this.login.loginState);
+    },
+    logout(loginState) {
+      this.login.loginState = loginState; //loginState 0으로 변경(로그아웃)
+      console.log("로그아웃합니다. / loginState : ", this.login.loginState);
     }
   }
 }
