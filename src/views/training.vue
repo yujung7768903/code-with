@@ -13,7 +13,7 @@
               정답코드 보기
               <img src="../assets/triangular.svg" class="triangle" alt="정답코드 보기 버튼"/> 
           </button>
-          <div class="answer" v-if="showAnswer == true">
+          <div class="answer" v-if="showAnswer === true">
             <!--정답코드 보여지는 부분-->
             <button type="button" class="x-btn" @click="showAnswer = false">
               X
@@ -22,6 +22,8 @@
           </div>
         </div>
       </div>
+      
+      <!--북마크 체크되어있을때 true, 아니면 false-->
       <!-- 코드 에디터 부분 -->
       <div id="code-editor">
           <p class="codepen" data-height="100%" data-theme-id="39664" data-default-tab="html,result" data-slug-hash="21881c03a017142cf6350cb206ac74f2" data-editable="true" data-user="futuredevsy" style="box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
@@ -51,7 +53,8 @@
           </button>
       </footer>
     </section>
-    
+    <img class="bookmark-r" src="../assets/bookmark-regular.svg" @click="bookmarkState = true" v-if="bookmarkState === false"> 
+    <img class="bookmark-s" src="../assets/bookmark-solid.svg" @click="bookmarkState = false" v-if="bookmarkState === true">
     <section class="right-section">
       <nav>
         <div class="log-btn">
@@ -66,7 +69,7 @@
         <div>
           <!--로그인 했을 경우 보임-->
           <button type="button">
-            <router-link class="mypage-btn" v-if="loginState == true" :to="{ name: 'Mypage' }">Mypage</router-link>
+            <router-link class="mypage-btn" v-if="loginState == true" :to="{ name: 'Mypage' }" @click="$router.push({name: 'Mypage'})">Mypage</router-link>
           </button>
         </div>
         <h3>HTML Step.{{ stepNum[0] }} {{ stepName[0] }}</h3>
@@ -87,6 +90,19 @@
         </button>
         <div class="complete-p">{{ complete[0] }}</div>
       </div>
+      <div class="memo">
+        <input type="text" placeholder=" + Memo Here: " maxlength="18" id="user-input" v-model="memo" @keyup.enter="addNewMemo(memo)">
+        <div class="memo-group"> <!--사용자 input 나타내기--> 
+          <ul class="memo-list">
+            <li v-for="(memo, index) in memoList" v-bind:key="memo">
+              {{ memo }}
+              <button class="deleteMemo" type="button" @click="deleteMemo(index)" >X</button>
+            </li>
+          </ul>
+          <button type="button" class="clearMemo" @click="clearMemo">Clear</button>
+        </div>
+      </div>
+      
     </section>
 
     <!--모달창(설명 뜨는부분)-->
@@ -121,28 +137,51 @@
 export default {
     name : 'Training',
     data() {
-    return {
-      //info : data,
-      modale: false,
-      showAnswer: false,
-      goalBtnState: false,
-      loginState: true,
-      stepNum: ["1", "2", "3"],
-      stepName: ["튜토리얼", "회원가입 창", "달력 만들기"],
-      answerCode: ["이곳에 정답 코드가 보여집니다", "어쩌구"],
-      complete: ["완성화면", "로그인 완성화면 예시", "달력 완성화면 예시"],
-      exTitle: [
-        "HTML Step 1 튜토리얼 진행을 환영합니다!",
-        "HTML Step 2 회원가입창 만들기 단계를 진행합니다!",
-      ],
-      exParagraph: [
-        "코드를 작성하기에 앞서,\nhtml의 뼈대가 될 기본 구조부터 알아볼거예요!",
-      ],
-    };
-  },
+      return {
+        memoList: [], 
+        modale: false,
+        showAnswer: false,
+        goalBtnState: false,
+        loginState: true,
+        stepNum: ["1", "2", "3"],
+        stepName: ["튜토리얼", "회원가입 창", "달력 만들기"],
+        answerCode: ["이곳에 정답 코드가 보여집니다", "어쩌구"],
+        complete: ["완성화면", "로그인 완성화면 예시", "달력 완성화면 예시"],
+        exTitle: [
+          "HTML Step 1 튜토리얼 진행을 환영합니다!",
+          "HTML Step 2 회원가입창 만들기 단계를 진행합니다!",
+        ],
+        exParagraph: [
+          "코드를 작성하기에 앞서,\nhtml의 뼈대가 될 기본 구조부터 알아볼거예요!",
+        ],
+        bookmarkState: false
+        
+      }  
+    },
+    // props: {
+    //   memoList: {type: Array, default: () => [] }
+    // },
   
-  methods: {}  
-}
+  
+    methods: {
+      addNewMemo(memo) {
+        //localStorage.setItem(this.memo, JSON.stringify(value));
+        if(this.memo != ''){
+          this.memoList.push(memo); 
+        } //json형식으로 바꿔줌  
+        this.memo = ''; //input값 초기화
+      },
+      deleteMemo(index) {
+        //localStorage.removeItem(memo.item);
+        this.memoList.splice(index, 1);
+      },
+      clearMemo() {
+        this.memoList = [];
+      }
+    }
+  
+  
+};
 
 </script>
 
@@ -152,11 +191,15 @@ export default {
   #765fd7 원래 배경색
   #d4d2db 연한 배경색
   #cdbcff 연보라색 (원래 제목색)
+  #8faccc 회하늘색(버튼색)
 */
+
+@import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
 
 * {
   box-sizing: border-box;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "SpoqaHanSans";
 }
 
 #training {
@@ -212,6 +255,7 @@ export default {
   align-content: center;
 }
 
+
 /*
 .left-section textarea {
   margin: 0px auto auto 20px;
@@ -227,7 +271,9 @@ export default {
 .title-btn {
   width: 100px;
   margin: 20px 30px;
-  font-size: 20px;
+  font-size: 24px;
+  font-family: "SpoqaHanSans";
+  font-weight: 600;
   color: #6F47FF;
   background: none;
   border: none;
@@ -246,7 +292,7 @@ export default {
   margin-right: 40px;
   border-radius: 6px;
   border: none;
-  background-color: #6F47FF;
+  background-color: #24b3ca;
   color: white;
 }
 .reset {
@@ -254,7 +300,7 @@ export default {
   font-size: 17px;
   border-radius: 6px;
   border: none;
-  background-color: #3ab8ff;
+  background-color: #6F47FF;
   color: white;
 }
 form {
@@ -287,6 +333,7 @@ form {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   padding: 20px;
+
 }
 .white-bg {
   display: flex;
@@ -305,9 +352,8 @@ form {
   padding: 20px;
 }
 .white-bg h1 {
-  margin: 0 auto auto 70px;
+  margin: 0;
   position: relative;
-
   font-weight: normal;
   font-size: 29px;
 }
@@ -323,8 +369,8 @@ form {
     rgba(85, 128, 226, 0.86) 62%,
     rgba(0, 212, 255, 0.35) 97%
   );
-  position: relative;
-  right: 90px;
+  /* position: relative;
+  right: 90px; */
 }
 .white-bg > img {
   width: 120px;
@@ -368,6 +414,8 @@ form {
   padding: 0;
   font-size: 17px;
   color: #3b3485;
+  background-color: white;
+  border-radius: 5px;
   position: relative;
   left: 250px;
   bottom: -20px;
@@ -387,17 +435,20 @@ form {
 .explain-answer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-content: center;
   margin: 20px auto auto 600px;
 }
 
 .answer {
   width: 550px;
-  height: 800px;
+  height: 710px;
   background: white;
   border-radius: 8px;
-  position: fixed;
+  position: relative;
+  top: 94px; right: 411px;
+  border: #d4d2db thin solid;
+  border-radius: 20px;
+  z-index: 3;
 }
 .answer p {
   width: 500px;
@@ -406,22 +457,24 @@ form {
   position: fixed;
 }
 .answer-btn {
-  width: 133px;
+  width: 140px;
   height: 32px;
   border: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   font-size: 16px;
+  background-color: white;
   color: rgb(59, 59, 59);
 }
 .explain-btn {
-  width: 133px;
+  width: 140px;
   height: 32px;
   border: none;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   font-size: 16px;
   color: rgb(59, 59, 59);
+  background-color: white;
 }
 
 .result {
@@ -551,10 +604,13 @@ h3 {
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  background-color: white;
   color: rgb(59, 59, 59);
 }
 .completeResult {
   display: flex;
+  position: absolute;
+  top: 100px; right: 18px;
   flex-direction: column;
   width: 550px;
   height: 700px;
@@ -576,31 +632,77 @@ h3 {
   border: none;
   font-size: 16px;
 }
+.memo {
+  display: flex;
+  position: static;
+  flex-direction: column;
+  margin: 100px auto;
+  width: 350px; height: 500px;
+  background-color: aliceblue;
+
+}
+.memo::before {
+  content: "";
+  display: inline-block;
+  position:relative;
+  /* left: 0px; top: 0px; */
+  width:100%; height:20px;
+  background-color: #c5dcf1;
+  
+  
+}
+.memo input {
+  display: flex;
+  position:relative;
+  left: 23px; top: 10px;
+ 
+  width: 300px; height: 25px;
+  border:#8faccc solid thin;
+  border-radius: 5px;
+  
+}
+.memo-group ul li {
+  width: fit-content;
+}
+.clearMemo {
+  position: absolute;
+  right: 75px;
+  bottom: 260px;
+  color: #55708d;
+  z-index: 1;
+  
+}
+.memo-list {
+  width:300px; height: 280px;
+  top: 20px;
+  overflow:scroll;
+  background:none;
+}
+/* .memo-group{
+  display: flex;
+  flex-direction: column;
+} */
 
 /*모든 버튼/router 링크에 적용되는 속성 */
 button:hover {
   cursor: pointer;
 }
+router-link:hover {
+  cursor: pointer;
+}
 
+/*북마크, 삼각형 등 기타 이미지들*/
 .triangle {
   width: 10px;
   height: 10px;
   margin-left: 6px;
 }
-router-link:hover {
-  cursor: pointer;
+.bookmark-r, .bookmark-s {
+  width:40px; height:40px;
+  position: relative;
+  top: 70px; right: 90px;
+  border: thin;
 }
-/*#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.answer {
-  width: 500px;
-  height: 600px;
-  background: white;
-}*/
+
+
 </style>
