@@ -3,7 +3,7 @@
   <div id="training">
     <section class="left-section">
       <div class="left-header">
-        <router-link class="title-btn" :to="{ name: '' }">CodeWith</router-link>
+        <router-link class="title-btn" :to="{ name: 'Home' }">CodeWith</router-link>
         <div class="explain-answer">
           <button type="button" @click="modale = true" class="explain-btn">
             설명 다시보기
@@ -22,7 +22,8 @@
           </div>
         </div>
       </div>
-      
+      <img class="bookmark" src="../assets/bookmark-regular.svg" @click="bookmarkState = true" v-if="bookmarkState === false"> 
+      <img class="bookmark" src="../assets/bookmark-solid.svg" @click="bookmarkState = false" v-if="bookmarkState === true">
       <!--북마크 체크되어있을때 true, 아니면 false-->
       <!-- 코드 에디터 부분 -->
       <div id="code-editor">
@@ -53,8 +54,6 @@
           </button>
       </footer>
     </section>
-    <img class="bookmark-r" src="../assets/bookmark-regular.svg" @click="bookmarkState = true" v-if="bookmarkState === false"> 
-    <img class="bookmark-s" src="../assets/bookmark-solid.svg" @click="bookmarkState = false" v-if="bookmarkState === true">
     <section class="right-section">
       <nav>
         <div class="log-btn">
@@ -228,7 +227,7 @@ export default {
 #training iframe {
   display: flex;
   width: 600px;
-  margin-left:0; margin-top: 10px;
+  margin-left:0;
   background-color: white;
   z-index: 1;
 }
@@ -241,18 +240,23 @@ export default {
   flex-direction: row;
 }*/
 
-.left-section {
+#training .left-section {
+  position: relative;
   display: flex;
   background: #d4d2db;
-  width: 1300px;
+  width: 80%px;
   height: 100%;
   flex-direction: column;
 }
-.left-header {
+#training .left-header {
   display: flex;
-  height: 67px;
+  width: 100%;
+  height: 77px;
+  padding: 0px 30px;
   flex-direction: row;
-  align-content: center;
+  /* align-content: center; */
+  justify-content: space-between;
+  align-items: center;
 }
 
 
@@ -270,7 +274,6 @@ export default {
 */
 .title-btn {
   width: 100px;
-  margin: 20px 30px;
   font-size: 24px;
   font-family: "SpoqaHanSans";
   font-weight: 600;
@@ -433,10 +436,10 @@ form {
 }
 
 .explain-answer {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-content: center;
-  margin: 20px auto auto 600px;
+  margin: 20px auto auto 600px; */
 }
 
 .answer {
@@ -518,7 +521,7 @@ footer img:hover {
 /*right-section 관련 부분들*/
 nav {
   display: flex;
-  width: 400px;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -529,7 +532,6 @@ nav {
   flex-direction: column;
   align-items: flex-end;
   width: 380px;
-  margin-right: 50px;
 }
 
 h3 {
@@ -697,12 +699,15 @@ router-link:hover {
   height: 10px;
   margin-left: 6px;
 }
-.bookmark-r, .bookmark-s {
+.bookmark{
+  position: absolute;
   width:40px; height:40px;
-  position: relative;
-  top: 70px; right: 90px;
+  top: 65px; right: 70px;
   border: thin;
 }
 
+@media screen and (max-width : 1040px) {
+  
+}
 
 </style>
