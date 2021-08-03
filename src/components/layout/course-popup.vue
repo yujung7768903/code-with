@@ -28,7 +28,7 @@
       </div>
     </div>
     <router-link to="/Training"><img class="continue-btn" @click="continueCourse" src="../../assets/btn_continue.svg" alt="continue-btn"></router-link>
-    <router-link to="/Training"><p class="start-first">처음부터 진행하기</p></router-link>
+    <router-link to="/Training"><p class="start-first" @click="startCourse">처음부터 진행하기</p></router-link>
   </div>
 </div>
 </template>
@@ -38,16 +38,16 @@ import axios from "axios"
 
 export default {
     name : 'course-popup',
-    props : ['_selectCourse'],
+    props : ['_selectCourse', '_userName'],
     data() {
         return {
           selectWindow : this._selectWindow,
           windowTitle : ['HTML', 'CSS', 'JavaScript'],
           selectCourseNumber : 1, // html : 1, css : 2, javascript : 3
           selectCourseData : {
-            userId: "id",
-            course: 3,
-            stage: 2,
+            userId: "",
+            course: 0,
+            stage: 0,
           }
         }
     },
@@ -69,6 +69,11 @@ export default {
           .catch(err => {
             console.log(err);
           })
+        },
+        startCourse() {
+          this.selectCourseData.userId = this._userName;
+          this.selectCourseData.course = this._selectCourse;
+          this.selectCourseData.stage = 1;
         }
     }
 }
