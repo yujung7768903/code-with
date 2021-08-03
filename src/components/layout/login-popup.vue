@@ -40,10 +40,11 @@
 import axios from "axios"
 export default {
     name : 'login-popup',
-    props : ['_loginPopupState', '_loginState'],
+    props : ['_loginPopupState', '_loginState', '_userName'],
     data() {
       return {
         popup : {
+
           index : 0,
           popupTitle : '로그인',
           popupSort : 'login',
@@ -108,21 +109,21 @@ export default {
           })
         }
       },
+      completeLogin() {
+        this.loginState = 1
+        this.userInfo();
+      },
       userInfo() {
         console.log("userInfo 함수를 수행합니다.");
         axios
         .get("http://3.35.217.11/memberInfo")
         .then(res => {
           console.log(res);
+          this.$emit('_completeLogin', this.loginState, res.data.userId)
         })
         .catch(err => {
           console.log(err);
         })
-      },
-      completeLogin() {
-        this.loginState = 1
-        this.$emit('_completeLogin', this.loginState)
-        this.userInfo();
       },
       findId() {
         this.popup.index = 1

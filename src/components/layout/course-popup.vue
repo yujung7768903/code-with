@@ -27,25 +27,53 @@
         <button class="tutorial-step">회원가입 창 만들기</button>
       </div>
     </div>
-    <img class="continue-btn" src="../../assets/btn_continue.svg" alt="continue-btn">
-    <p class="start-first">처음부터 진행하기</p>
+    <router-link to="/Training"><img class="continue-btn" @click="continueCourse" src="../../assets/btn_continue.svg" alt="continue-btn"></router-link>
+    <router-link to="/Training"><p class="start-first" @click="startCourse">처음부터 진행하기</p></router-link>
   </div>
 </div>
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
     name : 'course-popup',
-    props : ['_selectWindow'],
+    props : ['_selectCourse', '_userName'],
     data() {
         return {
-            selectWindow : this._selectWindow,
+          selectWindow : this._selectWindow,
+          windowTitle : ['HTML', 'CSS', 'JavaScript'],
+          selectCourseNumber : 1, // html : 1, css : 2, javascript : 3
+          selectCourseData : {
+            userId: "",
+            course: 0,
+            stage: 0,
+          }
         }
     },
     methods : {
         closeCoursePopup() {
-            console.log('코스 창 닫음');
-            this.$emit('_courseClose')
+          console.log('코스 창 닫음');
+          this.$emit('_courseClose')
+        },
+        continueCourse() {
+          axios
+          .get("http://3.35.217.11/api/stageIng/" + this._selectCourse)
+          .then(res => {
+            console.log(res);
+            this.selectCourseData.userId = res.data.userId;
+            this.selectCourseData.course = res.data.course;
+            this.selectCourseData.stage = res.data.stage;
+            console.log(this.selectCourseData);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        },
+        startCourse() {
+          this.selectCourseData.userId = this._userName;
+          this.selectCourseData.course = this._selectCourse;
+          this.selectCourseData.stage = 1;
         }
     }
 }
