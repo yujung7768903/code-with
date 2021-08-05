@@ -120,8 +120,8 @@ export default {
         axios
         .get("http://3.36.131.138/memberInfo")
         .then(res => {
-          console.log(res.data);
-          this.$emit('_completeLogin', this.loginState, res.data.name)
+          console.log(res);
+          this.$emit('_completeLogin', this.loginState, res.data.userId)
         })
         .catch(err => {
           console.log(err);
