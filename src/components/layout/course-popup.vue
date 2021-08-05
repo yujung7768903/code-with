@@ -27,8 +27,14 @@
         <button class="tutorial-step">회원가입 창 만들기</button>
       </div>
     </div>
-    <router-link to="/Training"><img class="continue-btn" @click="continueCourse" src="../../assets/btn_continue.svg" alt="continue-btn"></router-link>
-    <router-link to="/Training"><p class="start-first" @click="startCourse">처음부터 진행하기</p></router-link>
+    <!-- 이어하기 버튼 -->
+    <router-link :to="{name : 'Training', params : {userId : this.selectCourseData.userId, course : this.selectCourseData.course, stage : this.selectCourseData.stage}}">
+      <img class="continue-btn" @click="continueCourse" src="../../assets/btn_continue.svg" alt="continue-btn">
+    </router-link>
+    <!-- 처음부터 진행 버튼 -->
+    <router-link :to="{name : 'Training', params : {_userId : this.selectCourseData.userId, _course : this.selectCourseData.course, _stage : this.selectCourseData.stage}}">
+      <p class="start-first" @click="startCourse">처음부터 진행하기</p>
+    </router-link>
   </div>
 </div>
 </template>
@@ -58,13 +64,15 @@ export default {
         },
         continueCourse() {
           axios
-          .get("http://3.35.217.11/api/stageIng/" + this._selectCourse)
+          .get("http://3.36.131.138/api/stageIng/" + this._selectCourse)
           .then(res => {
             console.log(res);
             this.selectCourseData.userId = res.data.userId;
             this.selectCourseData.course = res.data.course;
             this.selectCourseData.stage = res.data.stage;
             console.log(this.selectCourseData);
+
+            this.emitter.emit("_continueCourse", this.selectCourseData);
           })
           .catch(err => {
             console.log(err);
@@ -74,6 +82,9 @@ export default {
           this.selectCourseData.userId = this._userName;
           this.selectCourseData.course = this._selectCourse;
           this.selectCourseData.stage = 1;
+          console.log(this.selectCourseData);
+
+          this.emitter.emit("_startCourse", this.selectCourseData);
         }
     }
 }

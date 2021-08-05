@@ -96,6 +96,7 @@ export default {
     },
     courseOpen(course) {
       this.selectCourse = course;
+      console.log(this.selectCourse);
       this.coursePopupState = 1;
     },
     courseClose() {
