@@ -70,6 +70,7 @@ export default {
       },
       loginGuide() {
         console.log("loginGuide 함수 실행됨");
+        this.loginNullcheck = true // loginNullcheck true로 초기화, 초기화를 하지 않을 경우 한 번 false로 바뀌면 계속 유지됨
         if (this.loginId == '' && this.loginPassword == '') {
           this.idGuideDisplay = 1;
           this.passwordGuideDisplay = 1;
@@ -89,9 +90,10 @@ export default {
       onSubmit() {
         console.log("onsubmit 함수 실행됨");
         this.loginGuide();
+        console.log(this.loginNullcheck);
         if (this.loginNullcheck == false) {
           axios
-          .post('http://3.35.217.11/api/login', {
+          .post('http://3.36.131.138/api/login', {
             userId : this.loginId,
             password : this.loginPassword
           })
@@ -105,7 +107,7 @@ export default {
             }
           })
           .catch(err => {
-              console.log(err);
+              console.log(err.response);
           })
         }
       },
@@ -116,7 +118,7 @@ export default {
       userInfo() {
         console.log("userInfo 함수를 수행합니다.");
         axios
-        .get("http://3.35.217.11/memberInfo")
+        .get("http://3.36.131.138/memberInfo")
         .then(res => {
           console.log(res);
           this.$emit('_completeLogin', this.loginState, res.data.userId)

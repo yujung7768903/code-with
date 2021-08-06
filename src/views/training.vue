@@ -3,7 +3,7 @@
   <div id="training">
     <section class="left-section">
       <div class="left-header">
-        <router-link class="title-btn" :to="{ name: '' }">CodeWith</router-link>
+        <router-link class="title-btn" :to="{ name: 'Home' }">CodeWith</router-link>
         <div class="explain-answer">
           <button type="button" @click="modale = true" class="explain-btn">
             설명 다시보기
@@ -22,14 +22,13 @@
           </div>
         </div>
       </div>
-      
+      <img class="bookmark" src="../assets/bookmark-regular.svg" @click="bookmarkState = true" v-if="bookmarkState === false"> 
+      <img class="bookmark" src="../assets/bookmark-solid.svg" @click="bookmarkState = false" v-if="bookmarkState === true">
       <!--북마크 체크되어있을때 true, 아니면 false-->
       <!-- 코드 에디터 부분 -->
       <div id="code-editor">
           <p class="codepen" data-height="100%" data-theme-id="39664" data-default-tab="html,result" data-slug-hash="21881c03a017142cf6350cb206ac74f2" data-editable="true" data-user="futuredevsy" style="box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-          <span>See the Pen <a href="https://codepen.io/futuredevsy/pen/21881c03a017142cf6350cb206ac74f2">
-          </a> by FutureDevSY (<a href="https://codepen.io/futuredevsy">@futuredevsy</a>)
-          on <a href="https://codepen.io">CodePen</a>.</span>
+          <span>새로고침 해주세요.</span>
           </p>
       </div>
 
@@ -38,7 +37,7 @@
           <button type="submit" class="submit">완성했어요</button>
           <button type="button" class="reset">초기화</button>
         </div>
-        
+        <div class="page-buttons">
           <button type="button" class="prev-page">
             <img
               src="../assets/chevron-left-solid.svg"
@@ -51,10 +50,9 @@
               alt="go to the next page"
             />
           </button>
+        </div>
       </footer>
     </section>
-    <img class="bookmark-r" src="../assets/bookmark-regular.svg" @click="bookmarkState = true" v-if="bookmarkState === false"> 
-    <img class="bookmark-s" src="../assets/bookmark-solid.svg" @click="bookmarkState = false" v-if="bookmarkState === true">
     <section class="right-section">
       <nav>
         <div class="log-btn">
@@ -136,6 +134,17 @@
 <script>
 export default {
     name : 'Training',
+    props : ['_userId', '_course', '_stage'],
+    // props: {
+    //   memoList: {type: Array, default: () => [] }
+    // },
+    mounted() {
+      this.selectCourseData.userId = this._userId;
+      this.selectCourseData.course = this._course;
+      this.selectCourseData.stage = this._stage;
+      
+      console.log(this.selectCourseData);
+    },
     data() {
       return {
         memoList: [], 
@@ -154,15 +163,14 @@ export default {
         exParagraph: [
           "코드를 작성하기에 앞서,\nhtml의 뼈대가 될 기본 구조부터 알아볼거예요!",
         ],
-        bookmarkState: false
-        
+        bookmarkState: false,
+        selectCourseData : { //사용자가 선택한 코스와 관련된 데이터 + 유저 아이디
+          userId: "",
+          course: 0,
+          stage: 0,
+        }
       }  
     },
-    // props: {
-    //   memoList: {type: Array, default: () => [] }
-    // },
-  
-  
     methods: {
       addNewMemo(memo) {
         //localStorage.setItem(this.memo, JSON.stringify(value));
@@ -220,7 +228,7 @@ export default {
   margin-left: 100px;
 }
 #training #code-editor {
-  height: calc(100% - 134px);
+  height: calc(100% - 154px);
 }
 #training #code-editor div{
   height: 100%;
@@ -228,7 +236,7 @@ export default {
 #training iframe {
   display: flex;
   width: 600px;
-  margin-left:0; margin-top: 10px;
+  margin-left:0;
   background-color: white;
   z-index: 1;
 }
@@ -241,18 +249,23 @@ export default {
   flex-direction: row;
 }*/
 
-.left-section {
+#training .left-section {
+  position: relative;
   display: flex;
   background: #d4d2db;
-  width: 1300px;
+  width: 75%;
   height: 100%;
   flex-direction: column;
 }
-.left-header {
+#training .left-header {
   display: flex;
-  height: 67px;
+  width: 100%;
+  height: 77px;
+  padding: 0px 30px;
   flex-direction: row;
-  align-content: center;
+  /* align-content: center; */
+  justify-content: space-between;
+  align-items: center;
 }
 
 
@@ -270,7 +283,6 @@ export default {
 */
 .title-btn {
   width: 100px;
-  margin: 20px 30px;
   font-size: 24px;
   font-family: "SpoqaHanSans";
   font-weight: 600;
@@ -283,7 +295,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: 10px auto auto 20px;
+  height: 40px;
 }
 .submit {
   width: 140px;
@@ -306,6 +318,9 @@ export default {
 form {
   display: flex;
   overflow-y: scroll;
+}
+.page-buttons {
+  width: 280px;
 }
 .code-num {
   display: flex;
@@ -433,10 +448,10 @@ form {
 }
 
 .explain-answer {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-content: center;
-  margin: 20px auto auto 600px;
+  margin: 20px auto auto 600px; */
 }
 
 .answer {
@@ -491,10 +506,11 @@ form {
 
 footer {
   display: flex;
-  width: 900px; height: 67px;
+  width: 100%; height: 77px;
   flex-direction: row;
   justify-content: space-between;
-  margin: 30px auto auto 140px;
+  align-items: center;
+  padding: 0 100px;
 }
 
 footer img {
@@ -518,7 +534,7 @@ footer img:hover {
 /*right-section 관련 부분들*/
 nav {
   display: flex;
-  width: 400px;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -528,8 +544,8 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 380px;
-  margin-right: 50px;
+  width: 25%;
+  padding: 0 10px;
 }
 
 h3 {
@@ -619,13 +635,11 @@ h3 {
   z-index: 2;
 }
 .complete-p {
-  width: 500px;
-  height: 600px;
+  width: 500px; height: 600px;
   margin: auto auto;
 }
 .x-btn {
-  width: 30px;
-  height: 30px;
+  width: 30px; height: 30px;
   margin-left: 510px;
   margin-top: 7px;
   background: none;
@@ -634,10 +648,11 @@ h3 {
 }
 .memo {
   display: flex;
-  position: static;
+  position: relative;
   flex-direction: column;
+  align-items: center;
   margin: 100px auto;
-  width: 350px; height: 500px;
+  width: 100%; height: 100%;
   background-color: aliceblue;
 
 }
@@ -652,36 +667,34 @@ h3 {
   
 }
 .memo input {
-  display: flex;
-  position:relative;
-  left: 23px; top: 10px;
- 
-  width: 300px; height: 25px;
+  width: calc(100% - 40px); height: 25px;
   border:#8faccc solid thin;
   border-radius: 5px;
-  
+  margin: 10px;
+}
+.memo-group{
+  width: 100%;
+  height: 70%;
+  padding: 0 20px;
 }
 .memo-group ul li {
   width: fit-content;
 }
+.memo-list {
+  width: 100%; height: 100%;
+  overflow-y: scroll;
+  margin: 0px;
+  margin-top: 10px;
+  background: none;
+}
 .clearMemo {
   position: absolute;
   right: 75px;
-  bottom: 260px;
+  bottom: 40px;
   color: #55708d;
   z-index: 1;
   
 }
-.memo-list {
-  width:300px; height: 280px;
-  top: 20px;
-  overflow:scroll;
-  background:none;
-}
-/* .memo-group{
-  display: flex;
-  flex-direction: column;
-} */
 
 /*모든 버튼/router 링크에 적용되는 속성 */
 button:hover {
@@ -697,12 +710,15 @@ router-link:hover {
   height: 10px;
   margin-left: 6px;
 }
-.bookmark-r, .bookmark-s {
+.bookmark{
+  position: absolute;
   width:40px; height:40px;
-  position: relative;
-  top: 70px; right: 90px;
+  top: 65px; right: 70px;
   border: thin;
 }
 
+@media screen and (max-width : 1040px) {
+  
+}
 
 </style>

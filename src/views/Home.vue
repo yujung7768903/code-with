@@ -11,6 +11,7 @@
         ></LoginPopup>
         <CoursePopup
             v-if="coursePopupState == 1"
+            :_userName = "login.userName"
             :_selectCourse = "selectCourse"
             @_courseClose = "courseClose"
         ></CoursePopup>
