@@ -214,17 +214,6 @@ h4 {
   body {
     overflow-y: scroll;
   }
-  #header .nav-menu {
-    display: none;
-  }
-  #header .nav-hamburger-menu {
-    display: block;
-    width: 28px; height: 28px;
-    padding: 0px;
-  }
-  #header .nav-hamburger-menu img{
-    width: 100%;
-  }
   #header-light .nav-menu {
     display: none;
   }

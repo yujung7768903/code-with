@@ -134,16 +134,13 @@
 <script>
 export default {
     name : 'Training',
-    props : ['_userId', '_course', '_stage'],
+    props : ['_course', '_stage'],
     // props: {
     //   memoList: {type: Array, default: () => [] }
     // },
     mounted() {
-      this.selectCourseData.userId = this._userId;
-      this.selectCourseData.course = this._course;
-      this.selectCourseData.stage = this._stage;
-      
-      console.log(this.selectCourseData);
+      this.setCourseData();
+      this.getCourseData();
     },
     data() {
       return {
@@ -165,7 +162,6 @@ export default {
         ],
         bookmarkState: false,
         selectCourseData : { //사용자가 선택한 코스와 관련된 데이터 + 유저 아이디
-          userId: "",
           course: 0,
           stage: 0,
         }
@@ -185,6 +181,18 @@ export default {
       },
       clearMemo() {
         this.memoList = [];
+      },
+      setCourseData() {
+        if (this._course != undefined) {
+          console.log('setLocalStorage :' + this._course, ',' + this._stage);
+          localStorage.setItem('courseData', JSON.stringify({course : this._course, stage : this._stage}));
+        }
+      },
+      getCourseData() {
+        let courseData = JSON.parse(localStorage.getItem('courseData'))
+        console.log('getLocalStorage :' + courseData.course + ',' + courseData.stage);
+        this.selectCourseData.course = this._course;
+        this.selectCourseData.stage = this._stage;
       }
     }
   
