@@ -7,11 +7,11 @@
         <div class="nav-menu">
             <router-link class="menu" to="/Signup">Sign up</router-link>
             <img class="nav-menu-division" src="../../assets/nav-menu-division.svg" alt="">
-            <button class="menu" @click="openLoginPopup" v-if="_loginState == 0">Login</button>
-            <button class="menu" @click="logout" v-if="_loginState == 1">Logout</button>
-            <img class="nav-menu-division" v-if="_loginState == 1" src="../../assets/nav-menu-division.svg" alt="">
+            <button class="menu" @click="openLoginPopup" v-if="loginState == 0">Login</button>
+            <button class="menu" @click="logout" v-if="loginState == 1">Logout</button>
+            <img class="nav-menu-division" v-if="loginState == 1" src="../../assets/nav-menu-division.svg" alt="">
             <!-- 로그인이 된 경우 마이페이지로 이동 -->
-            <router-link class="menu" to="/Mypage" v-if="_loginState == 1">My page</router-link>
+            <router-link class="menu" to="/Mypage" v-if="loginState == 1">My page</router-link>
         </div>
         <button class="nav-hamburger-menu" @click="openNavMenuPopup" type="button"><img src="../../assets/btn_hamburger.svg" alt=""></button>
         <NavMenuPopup
@@ -39,7 +39,7 @@ export default {
         }
     },
     created() {
-        this.loginState = this._loginState
+        this.loginState = JSON.parse(localStorage.getItem('loginState'));
         console.log("loginState : ", this.loginState, "loginPopupState : ", this.loginPopupState);
     },
     methods : {

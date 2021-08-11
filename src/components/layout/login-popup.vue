@@ -21,6 +21,7 @@
             <div class="login-guide" v-if="passwordGuideDisplay == 1">{{placeHolder[1]}}를 입력해주세요.</div>
           </div>
         </div>
+        <!-- <p id="find-user-id" >가입 정보에 해당하는 아이디는 {{user.id}}입니다.</p> -->
         <div class="signup-guide-container" v-if="popup.popupTitle == '로그인'">
           <span class="guide-to-signup">아직 회원이 아니세요?</span>
           <router-link to="/Signup" class="move-to-signup">회원가입</router-link>
@@ -46,12 +47,17 @@ export default {
     props : ['_loginPopupState', '_loginState', '_userName'],
     data() {
       return {
+        user : {
+          id : '',
+          name : ''
+        },
         popup : {
           index : 0, //0 : 로그인, 1 : html, 2 : css
           popupTitle : '로그인',
           popupSort : 'login',
           popupInfo : ['다양한 실습을 통해 html, css, javascript을 무료로 학습하실 수 있습니다.', '가입정보를 입력하신 후 Find를 클릭하시면 아이디를 확인하실 수 있습니다.', '가입정보를 입력하신 후 Find를 클릭하시면 임시비밀번호가 발송 됩니다.'],
         },
+        //state
         loginState : 0, //0은 로그인이 안 된 상태, 1은 로그인이 된 상태
         loginPopupState : this._loginPopupState,
         // form 관련 data
@@ -138,7 +144,7 @@ export default {
           })
         }
       },
-      completeLogin() {
+      completeLogin() { //로그인 성공
         this.loginState = 1
         this.userInfo();
       },
@@ -148,6 +154,7 @@ export default {
         .get("http://3.36.131.138/memberInfo")
         .then(res => {
           console.log(res.data);
+          localStorage.setItem('loginState', JSON.stringify(this.loginState));
           this.$emit('_completeLogin', this.loginState, res.data.name)
         })
         .catch(err => {
@@ -163,6 +170,8 @@ export default {
         })
         .then(res => {
           console.log(res);
+          this.user.id = res.data
+          alert("가입정보에 해당하는 아이디는 " + this.user.id + "입니다.")
         })
         .catch(err => {
           console.log(err);
@@ -178,6 +187,11 @@ export default {
         })
         .then(res => {
           console.log(res);
+          if (res.data == true) {
+            alert("이메일로 임시 비밀번호를 발송하였습니다.")
+          }else {
+            alert("비밀번호 찾기에 실패하였습니다. 이메일과 아이디를 확인해주세요.")
+          }
         })
         .catch(err => {
           console.log(err);
@@ -311,6 +325,10 @@ export default {
   color: #765FD7;
   font-weight: 700;
   cursor: pointer;
+}
+#find-user-id {
+  width: 100%;
+
 }
 .login-btn {
   cursor: pointer;
