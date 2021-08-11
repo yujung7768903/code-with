@@ -38,4 +38,7 @@ body {
     overflow: hidden;
     background-color: #F5F5F5;
 }
+.router-container {
+  width: 100%; height: 100%;
+}
 </style>

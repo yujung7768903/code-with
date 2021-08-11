@@ -28,11 +28,11 @@
       </div>
     </div>
     <!-- 이어하기 버튼 -->
-    <router-link :to="{name : 'Training', params : {userId : this.selectCourseData.userId, course : this.selectCourseData.course, stage : this.selectCourseData.stage}}">
+    <router-link :to="{name : 'Training', params : {course : this.selectCourseData.course, stage : this.selectCourseData.stage}}">
       <img class="continue-btn" @click="continueCourse" src="../../assets/btn_continue.svg" alt="continue-btn">
     </router-link>
     <!-- 처음부터 진행 버튼 -->
-    <router-link :to="{name : 'Training', params : {_userId : this.selectCourseData.userId, _course : this.selectCourseData.course, _stage : this.selectCourseData.stage}}">
+    <router-link :to="{name : 'Training', params : {_course : this.selectCourseData.course, _stage : this.selectCourseData.stage}}">
       <p class="start-first" @click="startCourse">처음부터 진행하기</p>
     </router-link>
   </div>
