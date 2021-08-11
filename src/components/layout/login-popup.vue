@@ -153,9 +153,14 @@ export default {
         axios
         .get("http://3.36.131.138/memberInfo")
         .then(res => {
+<<<<<<< HEAD
           console.log(res.data);
           localStorage.setItem('loginState', JSON.stringify(this.loginState));
           this.$emit('_completeLogin', this.loginState, res.data.name)
+=======
+          console.log(res);
+          this.$emit('_completeLogin', this.loginState, res.data.userId)
+>>>>>>> 819cd6e320909576fb4ca096d1dd7125e7ee11d1
         })
         .catch(err => {
           console.log(err);
