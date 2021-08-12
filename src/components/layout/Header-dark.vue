@@ -25,6 +25,7 @@
 
 <script>
 import NavMenuPopup from "./nav-menu-popup.vue"
+import axios from "axios"
 
 export default {
     name: "header-dark",
@@ -39,8 +40,7 @@ export default {
         }
     },
     created() {
-        this.loginState = JSON.parse(localStorage.getItem('loginState'));
-        console.log("loginState : ", this.loginState, "loginPopupState : ", this.loginPopupState);
+        this.loginState = this._loginState;
     },
     methods : {
         openLoginPopup() {
@@ -59,8 +59,19 @@ export default {
         },
         logout() {
             if (confirm("Logout 하시겠습니까?", this.loginState)) {
-            this.loginState = 0
-            this.$emit('_logout', this.loginState)
+                this.loginState = 0
+                localStorage.setItem('loginState', JSON.stringify(this.loginState)); //loginState 0으로 초기화 후 로컬스토리지에 다시 저장
+                this.$emit('_logout', this.loginState);
+                axios
+                .delete('http://3.36.131.138/api/logout')
+                .then(res => {
+                    console.log("로그아웃 되었습니다.");  
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log();
+                    console.log(err);
+                })
             }
         }
     }

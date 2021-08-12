@@ -51,8 +51,8 @@ export default {
           windowTitle : ['HTML', 'CSS', 'JavaScript'],
           selectCourseNumber : 1, // html : 1, css : 2, javascript : 3
           selectCourseData : {
-            userId: "",
-            course: 0,
+            userId: '',
+            course: '',
             stage: 0,
           }
         }
